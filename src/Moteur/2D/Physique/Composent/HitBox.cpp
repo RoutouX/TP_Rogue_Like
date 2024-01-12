@@ -4,8 +4,7 @@
 
 #include "HitBox.h"
 
-HitBox::HitBox(long double x, long double y) {
-    Position2D(x, y);
+HitBox::HitBox(long double x, long double y):Position2D(x, y){
 }
 
 HitBox::~HitBox(){}

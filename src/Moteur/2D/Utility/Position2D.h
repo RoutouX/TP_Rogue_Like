@@ -30,8 +30,8 @@ public:
     long double distanceEntre(long double x1, long double y1, long double x2, long double y2);
 
 private:
-    long double x;
-    long double y;
+    long double x; /* mm */
+    long double y; /* mm */
 };
 
 

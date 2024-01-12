@@ -22,7 +22,7 @@ public:
     void setRayon(long double rayon);
 
 private:
-    long double rayon = 0;
+    long double rayon = 0; /* mm */
 };
 
 

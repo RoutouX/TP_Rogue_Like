@@ -16,17 +16,20 @@ public:
     ~SquareHitBox2D();
 
     //Methode
-    bool itHit(HitBox* pHitBox);
+    bool itHit(HitBox* pHitBox) override;
 
     //Getter and Setter
     long double getWidth() const;
+
     void setWidth(long double width);
+
     long double getHeight() const;
+
     void setHeight(long double height);
 
 private:
-    long double width = 0;
-    long double height = 0;
+    long double width = 0; /* mm */
+    long double height = 0; /* mm */
 };
 
 
