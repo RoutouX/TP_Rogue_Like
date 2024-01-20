@@ -5,7 +5,6 @@
 #ifndef TP_ROGUE_LIKE_HITBOX_H
 #define TP_ROGUE_LIKE_HITBOX_H
 
-
 #include "../../Utility/Position2D.h"
 
 class HitBox: public Position2D{

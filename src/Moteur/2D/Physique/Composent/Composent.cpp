@@ -5,12 +5,11 @@
 #include "RoundHitBox2D.h"
 #include "Composent.h"
 
+class Map;
 
-
-Composent::Composent(bool *shutdown, bool *pause, long double rayon, long double x, long double y, bool blockingOther): RoundHitBox2D(rayon, x, y) {
+Composent::Composent(bool *shutdown, long double rayon, long double x, long double y, bool blockingOther): RoundHitBox2D(rayon, x, y) {
 
     this->shutdown = shutdown;
-    this->pause = pause;
 
     this->blockingOther = blockingOther;
 
@@ -36,7 +35,8 @@ void Composent::run(std::future<void> const& stop_token) {
 }
 
 void Composent::onGetHit() {
-
+    setVelocityX(0);
+    setVelocityY(0);
 }
 
 
@@ -58,13 +58,7 @@ void Composent::setShutdown(bool *shutdown) {
     Composent::shutdown = shutdown;
 }
 
-bool *Composent::getPause() const {
-    return pause;
-}
 
-void Composent::setPause(bool *pause) {
-    Composent::pause = pause;
-}
 
 bool Composent::isTakeGravity() const {
     return takeGravity;
@@ -106,15 +100,15 @@ void Composent::setVelocityY(long double velocityY) {
     Composent::velocityY = velocityY;
 }
 
-Map *Composent::getPMap() const {
-    return pMap;
-}
-
 void Composent::setPMap(Map *pMap) {
     Composent::pMap = pMap;
 }
 
 Composent::~Composent() {
 
+}
+
+Map *Composent::getPMap() const {
+    return pMap;
 }
 

@@ -11,6 +11,12 @@ add_executable(TP_Rogue_Like main.cpp src/Utility/Config.cpp src/Utility/Config.
         src/Moteur/2D/Physique/Composent/RoundHitBox2D.cpp
         src/Moteur/2D/Physique/Composent/RoundHitBox2D.h
         src/Moteur/2D/Physique/Composent/HitBox.cpp
-        src/Moteur/2D/Physique/Composent/HitBox.h)
+        src/Moteur/2D/Physique/Composent/HitBox.h
+        src/Moteur/2D/Graphique/Camera.cpp
+        src/Moteur/2D/Graphique/Camera.h
+        src/Moteur/2D/Game.cpp
+        src/Moteur/2D/Game.h
+        src/Moteur/2D/Engine.cpp
+        src/Moteur/2D/Engine.h)
 
 target_link_libraries(TP_Rogue_Like glfw3 OpenGL::GL)

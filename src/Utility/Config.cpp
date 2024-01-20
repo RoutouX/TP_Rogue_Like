@@ -2,8 +2,8 @@
 // Created by thoma on 03/08/2023.
 //
 
-#include "Config.h"
 
+#include "Config.h"
 
 #include <cstdio>
 #include <fstream>
