@@ -48,6 +48,8 @@ void Window::run(std::future<void> const& stop_token) {
             glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
+            setupOrthoProjection();
+
             if (drawgame && pCamera != nullptr){
                 glColor3f(0.0, 0.5, 0.5);
                 drawComponentHitBoxWithCamera();
@@ -94,9 +96,14 @@ void Window::drawComponentHitBoxWithCamera() {
         float posEcranY = diffY/pCamera->getHeight();
         long double rayonScreen = listComposent[i]->getRayon() / pCamera->getHeight();
         std::cout << "posEcranX : " << posEcranX << " posEcranY : " << posEcranY << " rayonScreen : " << rayonScreen << std::endl;
+        //drawCircle(posEcranX, posEcranY, rayonScreen, 360, 1920.0f/1080.0f);
+        //drawCircle(posEcranX, posEcranY, rayonScreen, 360);
         drawCircle(posEcranX, posEcranY, rayonScreen, 360);
     }
 }
+
+
+
 
 void Window::drawCircle(float cx, float cy, float r, int num_segments){
         glColor3f(0.0, 0.5, 0.5);
@@ -134,6 +141,21 @@ void Window::drawCircle(float cx, float cy, float r, int num_segments){
         glEnd();//was on comm
 }
 
+void Window::setupOrthoProjection() {
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    // Obtenir les dimensions de la fenêtre
+    int width, height;
+    glfwGetFramebufferSize(this->window, &width, &height);
+    float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
+
+    // Configurer la projection orthographique
+    glOrtho(-aspectRatio, aspectRatio, -1.0, 1.0, -1.0, 1.0);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+}
 
 
 

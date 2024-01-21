@@ -24,7 +24,10 @@ public:
 private:
     void drawComponentHitBoxWithCamera();
     void drawCircle(float cx, float cy, float r, int num_segments);
+    //void drawCircle(float cx, float cy, float r, int num_segments, float aspect_ratio);
 
+    //test
+    void setupOrthoProjection();
 
     bool* shutdown;
     bool drawgame = false;
