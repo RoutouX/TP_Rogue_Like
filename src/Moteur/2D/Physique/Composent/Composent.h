@@ -5,17 +5,16 @@
 #ifndef TP_ROGUE_LIKE_COMPOSENT_H
 #define TP_ROGUE_LIKE_COMPOSENT_H
 
-#include <future>
-
 #include "../../../../Utility/Thread.h"
-#include "../Map.h"
 #include "RoundHitBox2D.h"
+
+class Map;
 
 class Composent : public Thread, public RoundHitBox2D{
 public:
 
     /**------------------ CONSTRUCTOR --------------------*/
-    Composent(bool *shutdown, bool *pause, long double rayon, long double x, long double y, bool blockingOther);
+    Composent(bool *shutdown, long double rayon, long double x, long double y, bool blockingOther);
     ~Composent();
 
 
@@ -29,9 +28,7 @@ public:
 
     void setShutdown(bool *shutdown);
 
-    bool *getPause() const;
-
-    void setPause(bool *pause);
+    Map *getPMap() const;
 
     bool isTakeGravity() const;
 
@@ -53,14 +50,13 @@ public:
 
     void setVelocityY(long double velocityY);
 
-    Map *getPMap() const;
+    void setPMap(Map* pMap);
 
-    void setPMap(Map *pMap);
+    /**------------------ ATTRIBUT --------------------*/
 
 private:
 
     bool* shutdown;
-    bool* pause;
 
     bool takeGravity;
     bool blockingOther;
@@ -69,7 +65,7 @@ private:
     long double velocityX = 0;
     long double velocityY = 0;
 
-    Map* pMap;
+    Map* pMap = nullptr;
 
 };
 

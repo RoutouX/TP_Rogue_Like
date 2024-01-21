@@ -5,7 +5,6 @@
 #ifndef TP_ROGUE_LIKE_THREAD_H
 #define TP_ROGUE_LIKE_THREAD_H
 
-
 #include <chrono>
 #include <atomic>
 #include <thread>

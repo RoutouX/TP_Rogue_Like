@@ -2,12 +2,17 @@
 // Created by thoma on 06/08/2023.
 //
 
+
 #include "Window.h"
 
 #include <GLFW/glfw3.h>
 #include <GL/gl.h>
 
 #include <iostream>
+#include <vector>
+#include <valarray>
+#include <unistd.h>
+
 
 Window::Window(bool* shutdown) {
     this->shutdown = shutdown;
@@ -38,10 +43,23 @@ void Window::run(std::future<void> const& stop_token) {
     }
     glfwMakeContextCurrent(this->window);
 
+
     while (!is_stop_requested(stop_token) && !glfwWindowShouldClose(this->window) && !*this->shutdown) {
-            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+            glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
+            setupOrthoProjection();
+
+            if (drawgame && pCamera != nullptr){
+                glColor3f(0.0, 0.5, 1);
+                drawComponentHitBoxWithCamera();
+
+            }else{
+                std::cout << "drawgame : " << drawgame << " pCamera : " << pCamera << std::endl;
+            }
+
+            glEnd();
+            /**
             glBegin(GL_QUADS);
             glColor3f(1.0f, 0.0f, 0.0f); // Couleur rouge (RVB)
             glVertex2f(-0.5f, -0.5f); // Coin inférieur gauche
@@ -49,12 +67,98 @@ void Window::run(std::future<void> const& stop_token) {
             glVertex2f(0.5f, 0.5f);   // Coin supérieur droit
             glVertex2f(-0.5f, 0.5f);  // Coin supérieur gauche
             glEnd();
-
+            */
 
             //EndLoop
             glfwSwapBuffers(this->window);
             glfwPollEvents();
+            //usleep(delay1/60);
     }
     glfwTerminate();
     *this->shutdown = true;
 }
+
+void Window::setPCamera(Camera *pCamera) {
+    Window::pCamera = pCamera;
+}
+
+void Window::setDrawgame(bool drawgame) {
+    Window::drawgame = drawgame;
+}
+
+void Window::drawComponentHitBoxWithCamera() {
+    std::vector<Composent *> listComposent = pCamera->getComposentToDraw();
+    //std::cout << "size : " << size(listComposent) << std::endl;
+    for (int i = 0; i < size(listComposent); ++i) {
+        long double diffX = listComposent[i]->getX() - pCamera->getX();
+        float posEcranX = diffX/pCamera->getWidth();
+        long double diffY = listComposent[i]->getY() - pCamera->getY();
+        float posEcranY = diffY/pCamera->getHeight();
+        long double rayonScreen = listComposent[i]->getRayon() / pCamera->getHeight();
+        std::cout << "posEcranX : " << posEcranX << " posEcranY : " << posEcranY << " rayonScreen : " << rayonScreen << std::endl;
+        //drawCircle(posEcranX, posEcranY, rayonScreen, 360, 1920.0f/1080.0f);
+        //drawCircle(posEcranX, posEcranY, rayonScreen, 360);
+        drawCircle(posEcranX, posEcranY, rayonScreen, 360);
+    }
+}
+
+
+
+
+void Window::drawCircle(float cx, float cy, float r, int num_segments){
+        glColor3f(0.0, 0.5, 0.5);
+        float theta = 3.1415926 * 2 / float(num_segments);
+        float tangetial_factor = tanf(theta);//calculate the tangential factor
+
+        float radial_factor = cosf(theta);//calculate the radial factor
+
+        float x = r;//we start at angle = 0
+
+        float y = 0;
+        glLineWidth(2);
+        glBegin(GL_LINE_LOOP);
+        for (int ii = 0; ii < num_segments; ii++){
+            glVertex2f(x + cx, y + cy);//output vertex
+
+            //calculate the tangential vector
+            //remember, the radial vector is (x, y)
+            //to get the tangential vector we flip those coordinates and negate one of them
+
+            float tx = -y;
+            float ty = x;
+
+            //add the tangential vector
+
+            x += tx * tangetial_factor;
+            y += ty * tangetial_factor;
+
+            //correct using the radial factor
+
+            x *= radial_factor;
+            y *= radial_factor;
+        }
+        glClear(GL_COLOR_BUFFER_BIT);
+        glEnd();//was on comm
+}
+
+void Window::setupOrthoProjection() {
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    // Obtenir les dimensions de la fenêtre
+    int width, height;
+    glfwGetFramebufferSize(this->window, &width, &height);
+    float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
+
+    // Configurer la projection orthographique
+    glOrtho(-aspectRatio, aspectRatio, -1.0, 1.0, -1.0, 1.0);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+}
+
+
+
+
+
+
