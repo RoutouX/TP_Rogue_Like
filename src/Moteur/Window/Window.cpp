@@ -45,13 +45,13 @@ void Window::run(std::future<void> const& stop_token) {
 
 
     while (!is_stop_requested(stop_token) && !glfwWindowShouldClose(this->window) && !*this->shutdown) {
-            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+            glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
             setupOrthoProjection();
 
             if (drawgame && pCamera != nullptr){
-                glColor3f(0.0, 0.5, 0.5);
+                glColor3f(0.0, 0.5, 1);
                 drawComponentHitBoxWithCamera();
 
             }else{

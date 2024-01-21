@@ -31,6 +31,7 @@ bool RoundHitBox2D::itHit(HitBox* pHitBox){
     }
 }
 
+
 long double RoundHitBox2D::getRayon() const {
     return rayon;
 }

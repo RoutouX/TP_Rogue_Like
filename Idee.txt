@@ -1,0 +1,11 @@
+Sale pas carée
+Pas de layout
+Camera qui suit le persnage
+Min max size pour sale
+Attaque épée Hit box triangulaire
+
+
+
+
+----------------------------------------
+Coup = ennemie recule

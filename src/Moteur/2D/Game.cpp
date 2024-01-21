@@ -24,6 +24,7 @@ void Game::initGame() {
     this->pCamera = new Camera(192000, 108000, 0, 0, this->pShutdown);
     Composent* composentTet = new Composent(this->pShutdown, 5000, 0, 0, true);
     composentTet->setVelocityX(5);
+    composentTet->setVelocityY(11);
     composentTet->start();
     this->pMap->addComposent(composentTet);
     this->pMap->addComposent(new Composent(this->pShutdown, 3000, 40000, 40000, true));
