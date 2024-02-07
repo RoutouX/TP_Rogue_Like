@@ -19,7 +19,7 @@ public:
 
 
     /**------------------ METHODE --------------------*/
-    void onGetHit();
+    void onGetHit(Composent* c);
     void run(std::future<void> const& stop_token) override;
 
     /**------------------ GETER AND SETER --------------------*/

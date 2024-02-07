@@ -23,7 +23,7 @@ bool RoundHitBox2D::itHit(HitBox* pHitBox){
         long double cornerDistance_sq = pow((circleDistanceX - dynamic_cast<SquareHitBox2D*>(pHitBox)->getWidth()/2),2) + pow((circleDistanceY - dynamic_cast<SquareHitBox2D*>(pHitBox)->getHeight()/2),2);
         return (cornerDistance_sq <= pow(this->rayon,2));
     } else if (dynamic_cast<RoundHitBox2D*>(pHitBox) != nullptr){
-        if (dynamic_cast<RoundHitBox2D*>(pHitBox)->getRayon() + this->rayon <= this->distanceAvec(pHitBox)){
+        if (dynamic_cast<RoundHitBox2D*>(pHitBox)->getRayon() + this->rayon >= this->distanceAvec(pHitBox)){
             return true;
         } else {
             return false;

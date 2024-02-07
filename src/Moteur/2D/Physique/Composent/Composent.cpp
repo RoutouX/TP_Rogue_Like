@@ -4,8 +4,9 @@
 
 #include "RoundHitBox2D.h"
 #include "Composent.h"
+#include "vector"
 
-class Map;
+#include "../Map.h"
 
 Composent::Composent(bool *shutdown, long double rayon, long double x, long double y, bool blockingOther): RoundHitBox2D(rayon, x, y) {
 
@@ -29,12 +30,31 @@ void Composent::run(std::future<void> const& stop_token) {
             this->setX(this->getX() + velocityX * delta);
             this->setY(this->getY() + velocityY * delta);
             last = newLast;
+            if (pMap != nullptr){
+                std::vector<Composent*> componentList= pMap->getComposentList();
+                for(Composent* c: componentList){
+                    if (c != this) {
+                        if (c->itHit(this)) {
+                            std::cout << "its hit : " << c << "<>" << this << std::endl;
+                            c->onGetHit(this);
+                            this->onGetHit(c);
+                        }else{
+                            std::cout << "no hit : " << c << "<>" << this << std::endl;
+                        }
+                    }
+                    else{
+                        std::cout << "its self" << std::endl;
+                    }
+                }
+            }else{
+                std::cout << "no map" << std::endl;
+            }
         }
     }
     *this->shutdown = true;
 }
 
-void Composent::onGetHit() {
+void Composent::onGetHit(Composent* c) {
     setVelocityX(0);
     setVelocityY(0);
 }

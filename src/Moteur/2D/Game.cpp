@@ -22,12 +22,18 @@ Game::~Game() {
 void Game::initGame() {
     this->pMap = new Map(pShutdown);
     this->pCamera = new Camera(192000, 108000, 0, 0, this->pShutdown);
-    Composent* composentTet = new Composent(this->pShutdown, 5000, 0, 0, true);
-    composentTet->setVelocityX(5);
-    composentTet->setVelocityY(11);
-    composentTet->start();
-    this->pMap->addComposent(composentTet);
-    this->pMap->addComposent(new Composent(this->pShutdown, 3000, 40000, 40000, true));
+    Composent* composent1 = new Composent(this->pShutdown, 5000, 0, 0, true);
+    composent1->setPMap(pMap);
+    composent1->setVelocityX(9);
+    composent1->setVelocityY(11);
+    composent1->start();
+
+    Composent* composent2 = new Composent(this->pShutdown, 3000, 40000, 40000, true);
+    composent1->setPMap(pMap);
+    composent1->start();
+
+    this->pMap->addComposent(composent1);
+    this->pMap->addComposent(composent2);
     pCamera->setPMap(this->pMap);
 }
 

@@ -95,7 +95,7 @@ void Window::drawComponentHitBoxWithCamera() {
         long double diffY = listComposent[i]->getY() - pCamera->getY();
         float posEcranY = diffY/pCamera->getHeight();
         long double rayonScreen = listComposent[i]->getRayon() / pCamera->getHeight();
-        std::cout << "posEcranX : " << posEcranX << " posEcranY : " << posEcranY << " rayonScreen : " << rayonScreen << std::endl;
+        //std::cout << "posEcranX : " << posEcranX << " posEcranY : " << posEcranY << " rayonScreen : " << rayonScreen << std::endl;
         //drawCircle(posEcranX, posEcranY, rayonScreen, 360, 1920.0f/1080.0f);
         //drawCircle(posEcranX, posEcranY, rayonScreen, 360);
         drawCircle(posEcranX, posEcranY, rayonScreen, 360);
